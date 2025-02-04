@@ -1,0 +1,35 @@
+{
+    "subjects": [
+    {
+      "id": 101,
+      "name": "Mathematics 101",
+      "professorId": 11,
+      "course": "BS Mathematics"
+    },
+    {
+      "id": 102,
+      "name": "Physics 101",
+      "professorId": 11,
+      "course": "BS Physics"
+    },
+    {
+      "id": 103,
+      "name": "Computer Science 101",
+      "professorId": 12,
+      "course": "BS Computer Science"
+    },
+    {
+      "id": 104,
+      "name": "Chemistry 101",
+      "professorId": 13,
+      "course": "BS Chemistry"
+    },
+    {
+      "id": 105,
+      "name": "Biology 101",
+      "professorId": 13,
+      "course": "BS Biology"
+    }
+  ]
+  }
+  

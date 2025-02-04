@@ -1,0 +1,38 @@
+{
+  "history": [
+    {
+      "studentId": 1,
+      "classId": 201,
+      "actions": [
+        {
+          "date": "2025-01-18",
+          "action": "attended class"
+        },
+        {
+          "date": "2025-01-19",
+          "action": "submitted homework"
+        }
+      ]
+    },
+    {
+      "studentId": 1,
+      "classId": 203,
+      "actions": [
+        {
+          "date": "2025-01-20",
+          "action": "attended class"
+        }
+      ]
+    },
+    {
+      "studentId": 2,
+      "classId": 201,
+      "actions": [
+        {
+          "date": "2025-01-18",
+          "action": "missed class"
+        }
+      ]
+    }
+  ]
+}

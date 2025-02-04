@@ -1,0 +1,13 @@
+{
+    "notifications": [
+      { "id": 1, "message": "You have a new attendance to mark.", "read": false },
+      { "id": 2, "message": "Your class schedule has been updated.", "read": false },
+      { "id": 3, "message": "A new student has joined your class.", "read": false }
+    ],
+    "userProfile": {
+      "name": "John Doe",
+      "profilePicture": "https://example.com/path/to/profile/pic.jpg",
+      "role": "student"
+    }
+  }
+  

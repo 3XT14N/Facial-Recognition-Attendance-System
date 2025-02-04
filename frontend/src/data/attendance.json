@@ -1,0 +1,110 @@
+{
+  "attendance": [
+    {
+      "classId": 201,
+      "date": "2025-01-18",
+      "records": [
+        {
+          "studentId": 1,
+          "status": "present"
+        },
+        {
+          "studentId": 2,
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "classId": 201,
+      "date": "2025-01-19",
+      "records": [
+        {
+          "studentId": 1,
+          "status": "absent"
+        },
+        {
+          "studentId": 3,
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "classId": 203,
+      "date": "2025-01-18",
+      "records": [
+        {
+          "studentId": 1,
+          "status": "present"
+        },
+        {
+          "studentId": 3,
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "classId": 201,
+      "date": "2025-01-20",
+      "records": [
+        {
+          "studentId": 2,
+          "status": "present"
+        },
+        {
+          "studentId": 3,
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "classId": 202,
+      "date": "2025-01-18",
+      "records": [
+        {
+          "studentId": 4,
+          "status": "present"
+        },
+        {
+          "studentId": 5,
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "classId": 203,
+      "date": "2025-01-19",
+      "records": [
+        {
+          "studentId": 1,
+          "status": "present"
+        },
+        {
+          "studentId": 3,
+          "status": "present"
+        },
+        {
+          "studentId": 6,
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "classId": 202,
+      "date": "2025-01-20",
+      "records": [
+        {
+          "studentId": 4,
+          "status": "absent"
+        },
+        {
+          "studentId": 5,
+          "status": "present"
+        },
+        {
+          "studentId": 6,
+          "status": "present"
+        }
+      ]
+    }
+  ]
+}

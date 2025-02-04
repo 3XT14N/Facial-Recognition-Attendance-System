@@ -1,0 +1,95 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "student@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "student2@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "email": "student3@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 4,
+      "name": "Bob Brown",
+      "email": "student4@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 5,
+      "name": "Charlie White",
+      "email": "student5@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 6,
+      "name": "Diana Green",
+      "email": "student6@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 7,
+      "name": "Evan Black",
+      "email": "student7@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 8,
+      "name": "Fiona Blue",
+      "email": "student8@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 9,
+      "name": "George Gray",
+      "email": "student9@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 10,
+      "name": "Hannah Violet",
+      "email": "student10@example.com",
+      "password": "123",
+      "role": "student"
+    },
+    {
+      "id": 11,
+      "name": "Dr. Jane Doe",
+      "email": "professor1@example.com",
+      "password": "123",
+      "role": "professor"
+    },
+    {
+      "id": 12,
+      "name": "Dr. Alan Turing",
+      "email": "prof2@example.com",
+      "password": "123",
+      "role": "professor"
+    },
+    {
+      "id": 13,
+      "name": "Dr. Marie Curie",
+      "email": "prof3@example.com",
+      "password": "123",
+      "role": "professor"
+    }
+  ]
+}
