@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../utils/api";
+import Spinner from "./Spinner"; // Import the Spinner component
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = useSelector((state) => state.user);
+
   const [role, setRole] = useState("student");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [emailError, setEmailError] = useState(""); // Inline email error
-  const [passwordError, setPasswordError] = useState(""); // Inline password error
-  const [generalError, setGeneralError] = useState(""); // General error message
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +31,6 @@ const SignInForm = () => {
     setPasswordError("");
     setGeneralError("");
 
-    // Input validation
     if (!email) {
       setEmailError("Email is required.");
       setLoading(false);
@@ -31,32 +44,40 @@ const SignInForm = () => {
     }
 
     try {
-      // Call login API with email, password, and role as credentials
       const credentials = { email, password, role };
-      const data = await loginUser(credentials);
+      const response = await loginUser(credentials);
 
-      // Save user data to localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.id);
-      localStorage.setItem("userName", data.name);
-      localStorage.setItem("role", role);
+      if (response.error) {
+        throw new Error(response.error);
+      }
 
-      // Redirect to dashboard
-      setTimeout(() => {
-        setLoading(false);
-        window.location.href = "/dashboard";
-      }, 1000);
+      localStorage.setItem("authToken", response.token);
+
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {
+          token: response.token,
+          userId: response.id,
+          userName: response.name,
+          role: response.role,
+          studentId: response.student_id || null,
+          profId: response.prof_id || null,
+        },
+      });
+
+      const from = location.state?.from || "/dashboard";
+      navigate(from, { replace: true });
     } catch (error) {
-      setLoading(false);
       setGeneralError(error.message || "An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Log In</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Role Selection */}
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">I am a</label>
           <select
@@ -69,7 +90,6 @@ const SignInForm = () => {
           </select>
         </div>
 
-        {/* Email */}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email Address
@@ -83,11 +103,11 @@ const SignInForm = () => {
               emailError ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-gray-300"
             }`}
             placeholder="example@example.com"
+            disabled={loading}
           />
           {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
         </div>
 
-        {/* Password */}
         <div className="mb-4">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
@@ -101,44 +121,24 @@ const SignInForm = () => {
               passwordError ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-gray-300"
             }`}
             placeholder="********"
+            disabled={loading}
           />
           {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
         </div>
 
-        {/* General Error */}
         {generalError && <p className="text-red-500 text-sm mt-2">{generalError}</p>}
 
-        {/* Submit Button */}
         <div className="flex justify-center mt-4">
           <button
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg flex items-center justify-center transition duration-300 transform hover:scale-105 active:scale-95 disabled:opacity-50"
+            className="w-full py-2 px-4 text-white rounded-lg bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
           >
             {loading ? (
-              <>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="animate-spin h-5 w-5 mr-3 text-white"
-                >
-                  <circle
-                    strokeWidth="4"
-                    stroke="currentColor"
-                    r="10"
-                    cy="12"
-                    cx="12"
-                    className="opacity-25"
-                  ></circle>
-                  <path
-                    d="M4 12a8 8 0 018-8v8H4z"
-                    fill="currentColor"
-                    className="opacity-75"
-                  ></path>
-                </svg>
-                Logging In...
-              </>
+              <div className="flex items-center justify-center">
+                <Spinner size={20} color="#ffffff" /> {/* Use the Spinner component */}
+                <span className="ml-2">Logging In...</span>
+              </div>
             ) : (
               "Log In"
             )}

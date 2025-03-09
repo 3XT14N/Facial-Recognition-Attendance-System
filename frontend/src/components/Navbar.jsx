@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import data from "../data/NotifData.json"; // Importing the JSON file
+import { useSelector, useDispatch } from "react-redux"; // Redux hooks
+import data from "../data/NotifData.json"; // Importing JSON notifications
 
-const Navbar = ({ role, onSignOut }) => {
+const Navbar = ({ onSignOut }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [userProfile, setUserProfile] = useState({});
   const [isNotificationMenuOpen, setIsNotificationMenuOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
+  // Access user data from Redux store
+  const user = useSelector((state) => state.user);
+  const role = user?.role; // User role (student/professor)
+  const userProfile = user?.userProfile || {}; // User profile info
+
+  // Load notifications from JSON
   useEffect(() => {
     setNotifications(data.notifications);
-    setUserProfile(data.userProfile);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -22,14 +28,12 @@ const Navbar = ({ role, onSignOut }) => {
   const toggleNotificationMenu = () => setIsNotificationMenuOpen(!isNotificationMenuOpen);
 
   const handleSignOut = () => {
-    localStorage.removeItem("role");
-    localStorage.removeItem("professorName");
-    window.location.href = "/login";
+    dispatch({ type: "LOGOUT" }); // Clear user data
+    navigate("/login");
   };
 
   // Mark a notification as read
   const handleNotificationClick = (id) => {
-    // Mark the notification as read
     setNotifications((prevNotifications) =>
       prevNotifications.map((notification) =>
         notification.id === id ? { ...notification, read: true } : notification
@@ -37,10 +41,8 @@ const Navbar = ({ role, onSignOut }) => {
     );
   };
 
-  // Calculate unread notifications count
-  const unreadNotificationsCount = notifications.filter(
-    (notification) => !notification.read
-  ).length;
+  // Count unread notifications
+  const unreadNotificationsCount = notifications.filter((notif) => !notif.read).length;
 
   const isActive = (path) => location.pathname === path;
 
@@ -116,7 +118,6 @@ const Navbar = ({ role, onSignOut }) => {
             >
               <span className="text-lg">🔔</span>
               <span>Notifications</span>
-              {/* Show unread count if there are any unread notifications */}
               {unreadNotificationsCount > 0 && (
                 <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {unreadNotificationsCount}

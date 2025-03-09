@@ -1,0 +1,8 @@
+Flask
+Flask-PyMongo
+Flask-JWT-Extended
+Flask-CORS
+Werkzeug
+gridfs
+bson
+PyMongo

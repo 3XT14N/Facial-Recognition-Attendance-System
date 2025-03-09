@@ -22,17 +22,19 @@ const StudentDashboard = () => {
     year: 365,
   };
 
+  // Calculate attendance based on the selected period
   useEffect(() => {
     const calculateAttendance = () => {
       const now = new Date();
       const studentRecords = attendanceData.attendance.flatMap((classRecord) =>
-        classRecord.records.filter((record) => record.studentId === loggedInStudentId).map((record) => ({
-          date: new Date(classRecord.date),
-          status: record.status,
-        }))
+        classRecord.records
+          .filter((record) => record.studentId === loggedInStudentId)
+          .map((record) => ({
+            date: new Date(classRecord.date),
+            status: record.status,
+          }))
       );
 
-      // Filter attendance based on the selected period
       const periodDays = timePeriods[selectedPeriod];
       const attendanceCount = studentRecords.reduce((count, record) => {
         const daysDifference = (now - record.date) / (1000 * 60 * 60 * 24); // Convert ms to days
@@ -46,7 +48,6 @@ const StudentDashboard = () => {
       const studentHistory = historyData.history.filter(
         (history) => history.studentId === loggedInStudentId
       );
-
       setAttendanceHistory(studentHistory);
     };
 
@@ -66,6 +67,7 @@ const StudentDashboard = () => {
     ],
   };
 
+  // Pie chart options
   const pieOptions = {
     responsive: true,
     plugins: {
@@ -84,11 +86,12 @@ const StudentDashboard = () => {
     },
   };
 
+  // Handle period selection
   const handlePeriodClick = (period) => {
     setSelectedPeriod(period);
   };
 
-  // Render history actions
+  // Render attendance history
   const renderHistory = () => {
     return attendanceHistory.map((history, index) => (
       <div key={index} className="bg-white shadow-md p-4 mb-4 rounded-lg">
